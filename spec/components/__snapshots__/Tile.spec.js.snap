@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test @component <Tile /> renders correctly 1`] = `
+<View>
+  <Text>
+    I am a tile!!!
+  </Text>
+</View>
+`;
