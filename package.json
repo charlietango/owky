@@ -8,12 +8,17 @@
     "test": "jest"
   },
   "dependencies": {
+    "@types/lodash": "^4.14.174",
+    "@types/styled-components": "^5.1.14",
     "expo": "~42.0.1",
+    "expo-linear-gradient": "~9.2.0",
     "expo-status-bar": "~1.0.4",
+    "lodash": "^4.17.21",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-42.0.0.tar.gz",
     "react-native-web": "~0.13.12",
+    "styled-components": "^5.3.1",
     "yarn": "^1.22.11"
   },
   "devDependencies": {
