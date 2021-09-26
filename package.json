@@ -8,6 +8,8 @@
     "test": "jest"
   },
   "dependencies": {
+    "@react-navigation/native": "^6.0.2",
+    "@react-navigation/native-stack": "^6.1.0",
     "@types/lodash": "^4.14.174",
     "@types/styled-components": "^5.1.14",
     "expo": "~42.0.1",
@@ -17,6 +19,8 @@
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-42.0.0.tar.gz",
+    "react-native-safe-area-context": "3.2.0",
+    "react-native-screens": "~3.4.0",
     "react-native-web": "~0.13.12",
     "styled-components": "^5.3.1",
     "yarn": "^1.22.11"

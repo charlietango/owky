@@ -4,7 +4,9 @@
     "strict": true,
     "baseUrl": "src",
     "paths": {
-      "@components/*": ["components/*"]
+      "@components/*": ["components/*"],
+      "@screens/*": ["screens/*"],
+      "@navigation/*": ["navigation/*"]
     }
   }
 }

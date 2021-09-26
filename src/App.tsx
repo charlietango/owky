@@ -1,21 +1,6 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import MainStackNavigator from '@navigation/MainStackNavigator';
 
 export default function App(): JSX.Element {
-  return (
-    <View style={styles.container}>
-      <StatusBar style="auto" />
-      <Text>Open up App.tsx to start working on your app!</Text>
-    </View>
-  );
+  return <MainStackNavigator />;
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
