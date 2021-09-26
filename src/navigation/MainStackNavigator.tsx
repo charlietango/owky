@@ -9,12 +9,16 @@ import AddAccount from '@screens/AddAccount/AddAccount';
 const Stack = createNativeStackNavigator();
 
 export default function MainStackNavigator(): JSX.Element {
+  const headerDefaultOptions = {
+    headerLargeTitle: true,
+    headerShadowVisible: false,
+  };
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Overview" options={{ headerLargeTitle: true }} component={Overview} />
-        <Stack.Screen name="Add" options={{ headerLargeTitle: true }} component={AddAccount} />
-        <Stack.Screen name="Settings" options={{ headerLargeTitle: true }} component={Settings} />
+        <Stack.Screen name="Overview" options={headerDefaultOptions} component={Overview} />
+        <Stack.Screen name="Add" options={headerDefaultOptions} component={AddAccount} />
+        <Stack.Screen name="Settings" options={headerDefaultOptions} component={Settings} />
       </Stack.Navigator>
     </NavigationContainer>
   );
