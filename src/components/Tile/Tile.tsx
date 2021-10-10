@@ -6,7 +6,7 @@ import { Text, View } from 'react-native';
 
 const Container = styled(View)`
   width: 100%;
-  padding: 10px 10px 0 10px;
+  padding: 10px 17px 0 17px;
 `;
 
 const Shape = styled(LinearGradient)<{ color: string }>`
@@ -18,13 +18,13 @@ const Shape = styled(LinearGradient)<{ color: string }>`
 
 const COLORS = ['#F75D94', '#7929FE', '#FF5E06', '#08D2C5', '#E51B09', '#0D0D0D'];
 
-export default function Tile(): JSX.Element {
+export default function Tile(props: { title: string }): JSX.Element {
   const color = sample(COLORS) as string;
 
   return (
     <Container>
       <Shape colors={[color + 'AA', color]} color={color}>
-        <Text>Pepe</Text>
+        <Text>{props.title}</Text>
       </Shape>
     </Container>
   );
