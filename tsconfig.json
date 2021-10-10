@@ -6,7 +6,10 @@
     "paths": {
       "@components/*": ["components/*"],
       "@screens/*": ["screens/*"],
-      "@navigation/*": ["navigation/*"]
+      "@navigation/*": ["navigation/*"],
+      "@store/*": ["state/store/*"],
+      "@slices/*": ["state/slices/*"],
+      "@hooks/*": ["hooks/*"]
     }
   }
 }

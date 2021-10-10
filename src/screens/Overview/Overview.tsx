@@ -1,58 +1,53 @@
 import { FlatList, SafeAreaView } from 'react-native';
 import React, { useLayoutEffect } from 'react';
-
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { ParamListBase } from '@react-navigation/native';
+import { ParamListBase, useNavigation } from '@react-navigation/native';
 import styled from 'styled-components';
 
 import IconButton from '@components/IconButton/IconButton';
 import { Icon, IconSize } from '@components/IconButton/Icons';
 import Tile from '@components/Tile/Tile';
+import { useSelector } from '@hooks/store';
 
 const Container = styled(SafeAreaView)`
   flex: 1;
   background-color: white;
 `;
 
-interface IOverviewProps {
-  navigation: NativeStackNavigationProp<ParamListBase>;
-}
+export default function Overview(): JSX.Element {
+  const navigation: NativeStackNavigationProp<ParamListBase> = useNavigation();
+  const tokens = useSelector((state) => state.token.tokens);
 
-export default function Overview(props: IOverviewProps): JSX.Element {
   useLayoutEffect(() => {
-    props.navigation.setOptions({
-      headerRight: renderRightHeaderButton,
-      headerLeft: renderLeftHeaderButton,
+    navigation.setOptions({
+      headerRight: renderAddButton,
+      headerLeft: renderSettingsButton,
     });
   });
 
   return (
     <Container>
       <FlatList
-        data={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
-        renderItem={() => <Tile />}
+        data={tokens}
+        renderItem={(item) => <Tile title={item.item} />}
         keyExtractor={(item, index) => index.toString()}
       />
     </Container>
   );
 
-  function renderLeftHeaderButton() {
+  function renderSettingsButton() {
     return (
       <IconButton
         icon={Icon.settings}
-        onPress={() => props.navigation.push('Settings')}
+        onPress={() => navigation.push('Settings')}
         size={IconSize.medium}
       />
     );
   }
 
-  function renderRightHeaderButton() {
+  function renderAddButton() {
     return (
-      <IconButton
-        icon={Icon.add}
-        onPress={() => props.navigation.push('Add')}
-        size={IconSize.medium}
-      />
+      <IconButton icon={Icon.add} onPress={() => navigation.push('Add')} size={IconSize.medium} />
     );
   }
 }

@@ -23,6 +23,7 @@ module.exports = {
     quotes: ['error', 'single'],
     semi: ['error', 'always'],
     'prettier/prettier': 'error',
+    '@typescript-eslint/ban-ts-comment': 'off',
   },
   settings: {
     react: {
