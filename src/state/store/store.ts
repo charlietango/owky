@@ -1,9 +1,9 @@
-import tokenReducer from '@slices/token';
+import uriReducer from '@slices/uri';
 import { configureStore } from '@reduxjs/toolkit';
 
 const store = configureStore({
   reducer: {
-    token: tokenReducer,
+    uri: uriReducer,
   },
 });
 

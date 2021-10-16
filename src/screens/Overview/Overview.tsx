@@ -8,15 +8,18 @@ import IconButton from '@components/IconButton/IconButton';
 import { Icon, IconSize } from '@components/IconButton/Icons';
 import Tile from '@components/Tile/Tile';
 import { useSelector } from '@hooks/store';
+import { sample } from 'lodash';
 
 const Container = styled(SafeAreaView)`
   flex: 1;
   background-color: white;
 `;
 
+const COLORS = ['#F75D94', '#7929FE', '#FF5E06', '#08D2C5', '#E51B09', '#0D0D0D'];
+
 export default function Overview(): JSX.Element {
   const navigation: NativeStackNavigationProp<ParamListBase> = useNavigation();
-  const tokens = useSelector((state) => state.token.tokens);
+  const uris = useSelector((state) => state.uri.list);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -28,8 +31,8 @@ export default function Overview(): JSX.Element {
   return (
     <Container>
       <FlatList
-        data={tokens}
-        renderItem={(item) => <Tile title={item.item} />}
+        data={uris}
+        renderItem={(item) => <Tile uri={item.item} color={sample(COLORS) as string} />}
         keyExtractor={(item, index) => index.toString()}
       />
     </Container>

@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { sample } from 'lodash';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Text, View } from 'react-native';
+
+import { generateTokenFromUri } from '@services/authenticator';
+import ProgressBar from '@components/ProgressBar/ProgressBar';
 
 const Container = styled(View)`
   width: 100%;
@@ -16,15 +18,34 @@ const Shape = styled(LinearGradient)<{ color: string }>`
   height: 120px;
 `;
 
-const COLORS = ['#F75D94', '#7929FE', '#FF5E06', '#08D2C5', '#E51B09', '#0D0D0D'];
+interface TileProps {
+  uri: string;
+  color: string;
+}
 
-export default function Tile(props: { title: string }): JSX.Element {
-  const color = sample(COLORS) as string;
+export default function Tile({ uri, color }: TileProps): JSX.Element {
+  const [token, setToken] = useState(generateTokenFromUri(uri));
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setToken(generateTokenFromUri(uri));
+    }, 1000);
+
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, []);
+
+  const remainingPercentage = (token.timeRemaining / 30) * 110;
 
   return (
     <Container>
       <Shape colors={[color + 'AA', color]} color={color}>
-        <Text>{props.title}</Text>
+        <Text>{token.token}</Text>
+        <Text>{token.issuer}</Text>
+        <Text>{token.account}</Text>
+        <Text>{token.timeRemaining}</Text>
+        <ProgressBar percentage={remainingPercentage} />
       </Shape>
     </Container>
   );
