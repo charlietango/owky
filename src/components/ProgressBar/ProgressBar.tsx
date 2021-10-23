@@ -1,11 +1,10 @@
-import React from 'react';
-import { View } from 'react-native';
+import React, { useEffect, useRef } from 'react';
+import { Animated, Easing } from 'react-native';
 import styled from 'styled-components';
 
-const Progress = styled(View)<{ width: number }>`
+const Progress = styled(Animated.View)`
   height: 7px;
   background-color: #ffffff77;
-  width: ${(props) => props.width}%;
   position: absolute;
   bottom: 0;
   left: 0;
@@ -13,6 +12,30 @@ const Progress = styled(View)<{ width: number }>`
   z-index: 10;
 `;
 
-export default function ProgressBar(props: { percentage: number }): JSX.Element {
-  return <Progress width={props.percentage} />;
+type ProgressBarProps = {
+  timeRemaining: number;
+};
+
+export default function ProgressBar({ timeRemaining }: ProgressBarProps): JSX.Element {
+  const animated = useRef(new Animated.Value(30 - timeRemaining)).current;
+  const tick = (toValue: number) => {
+    Animated.timing(animated, {
+      toValue,
+      duration: 1000,
+      useNativeDriver: false,
+      easing: Easing.linear,
+    }).start();
+  };
+
+  const width = animated.interpolate({
+    inputRange: [0, 30],
+    outputRange: ['0%', '110%'],
+    extrapolate: 'extend',
+  });
+
+  useEffect(() => {
+    tick(timeRemaining);
+  }, [timeRemaining]);
+
+  return <Progress style={{ width }} />;
 }

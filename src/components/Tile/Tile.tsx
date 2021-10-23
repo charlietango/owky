@@ -36,8 +36,6 @@ export default function Tile({ uri, color }: TileProps): JSX.Element {
     };
   }, []);
 
-  const remainingPercentage = (token.timeRemaining / 30) * 110;
-
   return (
     <Container>
       <Shape colors={[color + 'AA', color]} color={color}>
@@ -45,7 +43,7 @@ export default function Tile({ uri, color }: TileProps): JSX.Element {
         <Text>{token.issuer}</Text>
         <Text>{token.account}</Text>
         <Text>{token.timeRemaining}</Text>
-        <ProgressBar percentage={remainingPercentage} />
+        <ProgressBar timeRemaining={token.timeRemaining} />
       </Shape>
     </Container>
   );
