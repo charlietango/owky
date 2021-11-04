@@ -1,5 +1,6 @@
 export enum Icon {
   add = 'add',
+  copy = 'copy',
   settings = 'settings',
 }
 
@@ -23,6 +24,9 @@ export interface IIcons {
 export const icons = {
   add: {
     uri: require('@assets/icons/add.png'),
+  },
+  copy: {
+    uri: require('@assets/icons/copy.png'),
   },
   settings: {
     uri: require('@assets/icons/settings.png'),
