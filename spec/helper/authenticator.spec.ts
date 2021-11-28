@@ -1,5 +1,5 @@
 import sinon from 'sinon';
-import { generateTokenFromUri, Token } from '@services/authenticator';
+import { generateTokenFromSecret, Token } from '@helper/authenticator';
 import { Authenticator } from '@otplib/core';
 
 // @ts-ignore
@@ -11,18 +11,22 @@ describe('token creation', () => {
   });
 
   it('should return token', () => {
-    const uri = 'otpauth://totp/Twitter:@charlietango592?secret=Q45TFIVGPFX4WORM&issuer=Twitter';
+    const account = {
+      secret: 'Q45TFIVGPFX4WORM',
+      username: '@charlietango592',
+      issuer: 'Twitter',
+      color: '#1DA1F2',
+    };
+
     const expectedToken: Token = {
       token: '123456',
-      account: '@charlietango592',
-      issuer: 'Twitter',
       timeRemaining: 21,
     };
 
     const generate = sinon.stub(Authenticator.prototype, 'generate').returns('123456');
     const timeRemaining = sinon.stub(Authenticator.prototype, 'timeRemaining').returns(21);
 
-    const token = generateTokenFromUri(uri);
+    const token = generateTokenFromSecret(account.secret);
 
     sinon.assert.calledOnce(generate);
     sinon.assert.calledOnce(timeRemaining);
@@ -32,7 +36,7 @@ describe('token creation', () => {
   it('should throw an exception when uri is malformed', () => {
     const uri = 'ana are mere';
     expect(() => {
-      const token = generateTokenFromUri(uri);
+      const token = generateTokenFromSecret(uri);
       console.log(token);
     }).toThrow();
   });

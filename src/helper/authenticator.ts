@@ -1,4 +1,3 @@
-import url from 'url';
 import { Buffer } from 'buffer';
 import { Authenticator } from '@otplib/core';
 import { createDigest, createRandomBytes } from '@otplib/plugin-crypto-js';
@@ -8,8 +7,6 @@ global.Buffer = global.Buffer || Buffer;
 
 export interface Token {
   token: string;
-  account: string;
-  issuer: string;
   timeRemaining: number;
 }
 
@@ -20,15 +17,10 @@ const authenticator = new Authenticator({
   keyEncoder,
 });
 
-export function generateTokenFromUri(uri: string): Token {
-  const parsed = url.parse(uri, true);
-  const account = parsed.pathname?.split(':')[1] || '';
-
+export function generateTokenFromSecret(secret: string): Token {
   try {
     return {
-      token: authenticator.generate(parsed.query.secret as string),
-      account,
-      issuer: parsed.query.issuer as string,
+      token: authenticator.generate(secret),
       timeRemaining: authenticator.timeRemaining(),
     };
   } catch (exception) {

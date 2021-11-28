@@ -4,13 +4,14 @@
     "strict": true,
     "baseUrl": "src",
     "paths": {
-      "@components/*": ["components/*"],
-      "@services/*": ["services/*"],
-      "@screens/*": ["screens/*"],
+      "@component/*": ["component/*"],
+      "@helper/*": ["helper/*"],
+      "@screen/*": ["screen/*"],
       "@navigation/*": ["navigation/*"],
       "@store/*": ["state/store/*"],
-      "@slices/*": ["state/slices/*"],
-      "@hooks/*": ["hooks/*"]
+      "@slice/*": ["state/slice/*"],
+      "@hook/*": ["hook/*"],
+      "@type/*": ["state/type/*"]
     }
   }
 }

@@ -4,22 +4,19 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { ParamListBase, useNavigation } from '@react-navigation/native';
 import styled from 'styled-components';
 
-import IconButton from '@components/IconButton/IconButton';
-import { Icon, IconSize } from '@components/IconButton/Icons';
-import Tile from '@components/Tile/Tile';
-import { useSelector } from '@hooks/store';
-import { sample } from 'lodash';
+import IconButton from '@component/IconButton/IconButton';
+import { Icon, IconSize } from '@component/IconButton/Icons';
+import Tile from '@component/Tile/Tile';
+import { useSelector } from '@hook/store';
 
 const Container = styled(SafeAreaView)`
   flex: 1;
   background-color: white;
 `;
 
-const COLORS = ['#F75D94', '#7929FE', '#FF5E06', '#08D2C5', '#E51B09', '#0D0D0D'];
-
 export default function Overview(): JSX.Element {
   const navigation: NativeStackNavigationProp<ParamListBase> = useNavigation();
-  const uris = useSelector((state) => state.uri.list);
+  const accounts = useSelector((state) => state.account.list);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -31,8 +28,8 @@ export default function Overview(): JSX.Element {
   return (
     <Container>
       <FlatList
-        data={uris}
-        renderItem={(item) => <Tile uri={item.item} color={sample(COLORS) as string} />}
+        data={accounts}
+        renderItem={(item) => <Tile account={item.item} />}
         keyExtractor={(item, index) => index.toString()}
       />
     </Container>

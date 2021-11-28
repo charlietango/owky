@@ -2,9 +2,9 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import Overview from '@screens/Overview/Overview';
-import Settings from '@screens/Settings/Settings';
-import AddAccount from '@screens/AddAccount/AddAccount';
+import Overview from '@screen/Overview/Overview';
+import Settings from '@screen/Settings/Settings';
+import AddAccount from '@screen/AddAccount/AddAccount';
 
 const Stack = createNativeStackNavigator();
 

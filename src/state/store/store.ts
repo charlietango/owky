@@ -3,10 +3,10 @@ import { combineReducers } from 'redux';
 import { persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import uriReducer from '@slices/uri';
+import accountReducer from '@slice/account';
 
 const reducers = combineReducers({
-  uri: uriReducer,
+  account: accountReducer,
 });
 const persistedReducers = persistReducer({ key: 'root', storage: AsyncStorage }, reducers);
 

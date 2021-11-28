@@ -6,8 +6,8 @@ import * as Clipboard from 'expo-clipboard';
 import * as Haptics from 'expo-haptics';
 import { NotificationFeedbackType } from 'expo-haptics';
 
-import { generateTokenFromUri } from '@services/authenticator';
-import ProgressBar from '@components/ProgressBar/ProgressBar';
+import { generateTokenFromSecret } from '@helper/authenticator';
+import ProgressBar from '@component/ProgressBar/ProgressBar';
 import {
   Directions,
   FlingGestureHandler,
@@ -16,15 +16,16 @@ import {
   LongPressGestureHandler,
   State,
 } from 'react-native-gesture-handler';
-import IconButton from '@components/IconButton/IconButton';
-import { Icon, IconSize } from '@components/IconButton/Icons';
+import IconButton from '@component/IconButton/IconButton';
+import { Icon, IconSize } from '@component/IconButton/Icons';
+import { Account } from '@type/account';
 
 const Wrapper = styled(View)`
   width: 100%;
   padding: 10px 17px 0 17px;
 `;
 
-const Gradient = styled(LinearGradient)<{ color: string }>`
+const Gradient = styled(LinearGradient)`
   border-radius: 17px;
   padding: 15px;
   width: 100%;
@@ -50,7 +51,7 @@ const TokenLabel = styled(Text)`
   color: white;
 `;
 
-const AccountLabel = styled(Text)`
+const UsernameLabel = styled(Text)`
   color: white;
   font-weight: 500;
 `;
@@ -61,17 +62,16 @@ const IssuerLabel = styled(Text)`
 `;
 
 interface TileProps {
-  uri: string;
-  color: string;
+  account: Account;
 }
 
-export default function Tile({ uri, color }: TileProps): JSX.Element {
-  const [token, setToken] = useState(generateTokenFromUri(uri));
+export default function Tile({ account }: TileProps): JSX.Element {
+  const [token, setToken] = useState(generateTokenFromSecret(account.secret));
   const [hidden, setHidden] = useState(true);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      setToken(generateTokenFromUri(uri));
+      setToken(generateTokenFromSecret(account.secret));
     }, 1000);
 
     return () => {
@@ -98,7 +98,7 @@ export default function Tile({ uri, color }: TileProps): JSX.Element {
 
   return (
     <Wrapper>
-      <Gradient colors={[color + 'AA', color]} color={color}>
+      <Gradient colors={[account.color + 'AA', account.color]}>
         <FlingGestureHandler
           direction={Directions.RIGHT | Directions.LEFT}
           onHandlerStateChange={handleFling}
@@ -107,8 +107,8 @@ export default function Tile({ uri, color }: TileProps): JSX.Element {
             <ContentWrapper>
               <DetailsWrapper>
                 <TokenLabel>{hidden ? '******' : token.token}</TokenLabel>
-                <AccountLabel>{token.account}</AccountLabel>
-                <IssuerLabel>{token.issuer}</IssuerLabel>
+                <UsernameLabel>{account.username}</UsernameLabel>
+                <IssuerLabel>{account.issuer}</IssuerLabel>
               </DetailsWrapper>
               <ActionsWrapper>
                 <IconButton icon={Icon.copy} size={IconSize.large} onPress={handleCopy} />

@@ -1,6 +1,6 @@
 import { Image, TouchableOpacity } from 'react-native';
 import React from 'react';
-import { icons, Icon, IconSize } from '@components/IconButton/Icons';
+import { icons, Icon, IconSize } from '@component/IconButton/Icons';
 
 export interface IIconButtonProps {
   icon: Icon;
