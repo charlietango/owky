@@ -6,6 +6,7 @@ import { add } from '@slice/account';
 import TextInput from '@component/TextInput/TextInput';
 import styled from 'styled-components';
 import { PrimaryButton, SecondaryButton } from '@component/Button/Button';
+import ColorPicker from '@component/ColorPicker/ColorPicker';
 
 const Container = styled(SafeAreaView)`
   background-color: #fff;
@@ -18,13 +19,15 @@ export default function AddAccount(): JSX.Element {
   const [secret, setSecret] = useState('');
   const [username, setUsername] = useState('');
   const [issuer, setIssuer] = useState('');
+  const [color, setColor] = useState('');
   const dispatch = useDispatch();
 
   const handleAdd = () => {
     if (!secret || !username || !issuer) {
       Alert.alert('Empty form', 'Please fill the details in.');
+      return;
     }
-    dispatch(add({ secret, username, issuer, color: '#393939' }));
+    dispatch(add({ secret, username, issuer, color }));
   };
 
   return (
@@ -56,6 +59,7 @@ export default function AddAccount(): JSX.Element {
         }
         onChange={(value: string) => setIssuer(value)}
       />
+      <ColorPicker onSelect={setColor} />
       <PrimaryButton title={'Add'} onPress={handleAdd} />
       <SecondaryButton title={'Fill by scanning QR'} onPress={() => console.log('Open camera')} />
     </Container>
