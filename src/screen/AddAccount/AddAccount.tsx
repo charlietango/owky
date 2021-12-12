@@ -1,10 +1,11 @@
-import { Button, SafeAreaView } from 'react-native';
+import { Alert, SafeAreaView } from 'react-native';
 import React, { useState } from 'react';
 
 import { useDispatch } from '@hook/store';
 import { add } from '@slice/account';
 import TextInput from '@component/TextInput/TextInput';
 import styled from 'styled-components';
+import { PrimaryButton, SecondaryButton } from '@component/Button/Button';
 
 const Container = styled(SafeAreaView)`
   background-color: #fff;
@@ -18,6 +19,13 @@ export default function AddAccount(): JSX.Element {
   const [username, setUsername] = useState('');
   const [issuer, setIssuer] = useState('');
   const dispatch = useDispatch();
+
+  const handleAdd = () => {
+    if (!secret || !username || !issuer) {
+      Alert.alert('Empty form', 'Please fill the details in.');
+    }
+    dispatch(add({ secret, username, issuer, color: '#393939' }));
+  };
 
   return (
     <Container>
@@ -48,10 +56,8 @@ export default function AddAccount(): JSX.Element {
         }
         onChange={(value: string) => setIssuer(value)}
       />
-      <Button
-        title={'Add'}
-        onPress={() => dispatch(add({ secret, username, issuer, color: '#393939' }))}
-      />
+      <PrimaryButton title={'Add'} onPress={handleAdd} />
+      <SecondaryButton title={'Fill by scanning QR'} onPress={() => console.log('Open camera')} />
     </Container>
   );
 }
