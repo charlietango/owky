@@ -1,4 +1,4 @@
-import { FlatList, SafeAreaView, Text } from 'react-native';
+import { FlatList, SafeAreaView } from 'react-native';
 import React, { useLayoutEffect } from 'react';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { ParamListBase, useNavigation } from '@react-navigation/native';
@@ -8,6 +8,7 @@ import IconButton from '@component/IconButton/IconButton';
 import { Icon, IconSize } from '@component/IconButton/Icons';
 import Tile from '@component/Tile/Tile';
 import { useSelector } from '@hook/store';
+import EmptyList from '@screen/Overview/EmptyList';
 
 const Container = styled(SafeAreaView)`
   flex: 1;
@@ -29,7 +30,8 @@ export default function Overview(): JSX.Element {
     <Container>
       <FlatList
         data={accounts}
-        ListEmptyComponent={<Text>Start by adding a new account</Text>} //TODO: improve default screen
+        ListEmptyComponent={<EmptyList />}
+        contentContainerStyle={{ flexGrow: 1 }}
         renderItem={(item) => <Tile account={item.item} />}
         keyExtractor={(item, index) => index.toString()}
       />
