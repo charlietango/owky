@@ -7,6 +7,8 @@ import TextInput from '@component/TextInput/TextInput';
 import styled from 'styled-components';
 import { PrimaryButton, SecondaryButton } from '@component/Button/Button';
 import ColorPicker from '@component/ColorPicker/ColorPicker';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { ParamListBase, useNavigation } from '@react-navigation/native';
 
 const Container = styled(SafeAreaView)`
   background-color: #fff;
@@ -22,12 +24,15 @@ export default function AddAccount(): JSX.Element {
   const [color, setColor] = useState('');
   const dispatch = useDispatch();
 
+  const navigation: NativeStackNavigationProp<ParamListBase> = useNavigation();
+
   const handleAdd = () => {
     if (!secret || !username || !issuer) {
       Alert.alert('Empty form', 'Please fill the details in.');
       return;
     }
     dispatch(add({ secret, username, issuer, color }));
+    navigation.pop();
   };
 
   return (
@@ -45,6 +50,7 @@ export default function AddAccount(): JSX.Element {
         label={'Username / email'}
         value={username}
         placeholder={'jane.doe@example.com'}
+        keyboardType={'email-address'}
         description={
           'Add your username / email to be able to manage multiple accounts on the same website.'
         }

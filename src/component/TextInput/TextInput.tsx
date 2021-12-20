@@ -1,4 +1,4 @@
-import { View, Text, TextInput as NativeTextInput } from 'react-native';
+import { View, Text, TextInput as NativeTextInput, KeyboardType } from 'react-native';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
@@ -7,6 +7,7 @@ type TextInputProps = {
   value: string;
   placeholder: string;
   description: string;
+  keyboardType?: KeyboardType;
   onChange: (value: string) => void;
 };
 
@@ -43,9 +44,12 @@ export default function TextInput(props: TextInputProps): JSX.Element {
       <Label>{props.label}</Label>
       <Input
         focused={focused}
+        autoCorrect={false}
+        autoCapitalize={'none'}
         value={props.value}
         placeholder={props.placeholder}
         onChangeText={props.onChange}
+        keyboardType={props.keyboardType || 'default'}
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
       />
