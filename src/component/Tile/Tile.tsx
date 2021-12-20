@@ -5,9 +5,6 @@ import { Text, View } from 'react-native';
 import * as Clipboard from 'expo-clipboard';
 import * as Haptics from 'expo-haptics';
 import { NotificationFeedbackType } from 'expo-haptics';
-
-import { generateTokenFromSecret } from '@helper/authenticator';
-import ProgressBar from '@component/ProgressBar/ProgressBar';
 import {
   Directions,
   FlingGestureHandler,
@@ -16,6 +13,10 @@ import {
   LongPressGestureHandler,
   State,
 } from 'react-native-gesture-handler';
+import chroma from 'chroma-js';
+
+import { generateTokenFromSecret } from '@helper/authenticator';
+import ProgressBar from '@component/ProgressBar/ProgressBar';
 import IconButton from '@component/IconButton/IconButton';
 import { Icon, IconSize } from '@component/IconButton/Icons';
 import { Account } from '@type/account';
@@ -98,7 +99,7 @@ export default function Tile({ account }: TileProps): JSX.Element {
 
   return (
     <Wrapper>
-      <Gradient colors={[account.color + 'AA', account.color]}>
+      <Gradient colors={[chroma(account.color).saturate().hex(), account.color]}>
         <FlingGestureHandler
           direction={Directions.RIGHT | Directions.LEFT}
           onHandlerStateChange={handleFling}
