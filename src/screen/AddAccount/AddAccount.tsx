@@ -15,8 +15,6 @@ const Container = styled(SafeAreaView)`
   flex: 1;
 `;
 
-// TODO: color picker, style button, website validation + fetch logo
-
 export default function AddAccount(): JSX.Element {
   const [secret, setSecret] = useState('');
   const [username, setUsername] = useState('');
@@ -41,9 +39,7 @@ export default function AddAccount(): JSX.Element {
         label={'Two-factor Secret'}
         value={secret}
         placeholder={'xxxxxxxx'}
-        description={
-          'If you don’t want to use your camera, we respect that. Type the secret code in the this field.'
-        }
+        description={'Type the secret code in the this field.'}
         onChange={(value: string) => setSecret(value)}
       />
       <TextInput
@@ -60,14 +56,20 @@ export default function AddAccount(): JSX.Element {
         label={'Service provider website'}
         value={issuer}
         placeholder={'www.example.com'}
-        description={
-          'We ask for it because we want to look up the logo so you can find your access token easily.'
-        }
+        description={'Add the website so you can find your access token easily.'}
         onChange={(value: string) => setIssuer(value)}
       />
       <ColorPicker onSelect={setColor} />
       <PrimaryButton title={'Add'} onPress={handleAdd} />
-      <SecondaryButton title={'Fill by scanning QR'} onPress={() => console.log('Open camera')} />
+      <SecondaryButton
+        title={'Fill by scanning QR'}
+        onPress={() =>
+          Alert.alert(
+            'Coming soon!',
+            'This functionality is work in progress. Till it gets released please fill in the details by hand.',
+          )
+        }
+      />
     </Container>
   );
 }
