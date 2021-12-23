@@ -1,7 +1,8 @@
-import { FlatList, SafeAreaView } from 'react-native';
-import React, { useLayoutEffect } from 'react';
+import { FlatList, NativeScrollEvent, NativeSyntheticEvent, SafeAreaView } from 'react-native';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { ParamListBase, useNavigation } from '@react-navigation/native';
+import * as Haptics from 'expo-haptics';
 import styled from 'styled-components';
 
 import IconButton from '@component/IconButton/IconButton';
@@ -9,6 +10,7 @@ import { Icon, IconSize } from '@component/IconButton/Icons';
 import Tile from '@component/Tile/Tile';
 import { useSelector } from '@hook/store';
 import EmptyList from '@screen/Overview/EmptyList';
+import SearchInput from '@component/SearchInput/SearchInput';
 
 const Container = styled(SafeAreaView)`
   flex: 1;
@@ -17,7 +19,11 @@ const Container = styled(SafeAreaView)`
 
 export default function Overview(): JSX.Element {
   const navigation: NativeStackNavigationProp<ParamListBase> = useNavigation();
-  const accounts = useSelector((state) => state.account.list);
+  const storedAccounts = useSelector((state) => state.account.list);
+
+  const [showHeader, setShowHeader] = useState(false);
+  const [filterQuery, setFilterQuery] = useState<string | null>(null);
+  const [accounts, setAccounts] = useState(storedAccounts);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -26,14 +32,52 @@ export default function Overview(): JSX.Element {
     });
   });
 
+  useEffect(() => {
+    if (!filterQuery) {
+      setAccounts(storedAccounts);
+      return;
+    }
+
+    setAccounts(
+      storedAccounts.filter((account) => {
+        return (
+          account.issuer.toLowerCase().includes(filterQuery.toLowerCase()) ||
+          account.username.toLowerCase().includes(filterQuery.toLowerCase())
+        );
+      }),
+    );
+  }, [filterQuery, storedAccounts]);
+
+  function handleScroll(event: NativeSyntheticEvent<NativeScrollEvent>) {
+    if (event.nativeEvent.contentOffset.y < -30) {
+      if (!showHeader) {
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+      }
+      setShowHeader(true);
+    }
+    if (event.nativeEvent.contentOffset.y > 30) {
+      setShowHeader(false);
+    }
+  }
+
   return (
     <Container>
       <FlatList
         data={accounts}
         ListEmptyComponent={<EmptyList />}
         contentContainerStyle={{ flexGrow: 1 }}
+        ListHeaderComponent={
+          showHeader ? (
+            <SearchInput
+              placeholder={'Search by email or domain'}
+              onChangeText={(value: string) => setFilterQuery(value)}
+            />
+          ) : null
+        }
         renderItem={(item) => <Tile account={item.item} />}
         keyExtractor={(item, index) => index.toString()}
+        onScroll={handleScroll}
+        scrollEventThrottle={16}
       />
     </Container>
   );
