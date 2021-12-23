@@ -1,6 +1,7 @@
 export enum Icon {
   add = 'add',
   copy = 'copy',
+  delete = 'delete',
   settings = 'settings',
 }
 
@@ -27,6 +28,9 @@ export const icons = {
   },
   copy: {
     uri: require('@assets/icons/copy.png'),
+  },
+  delete: {
+    uri: require('@assets/icons/delete.png'),
   },
   settings: {
     uri: require('@assets/icons/settings.png'),
