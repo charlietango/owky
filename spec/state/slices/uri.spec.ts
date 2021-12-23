@@ -18,6 +18,7 @@ describe('should return initial state and handle actions', () => {
       reducer(
         previousState,
         add({
+          uuid: 'abc-123',
           secret: 'Q45TFIVGPFX4WORM',
           username: '@charlietango592',
           issuer: 'Twitter',
@@ -27,6 +28,7 @@ describe('should return initial state and handle actions', () => {
     ).toEqual({
       list: [
         {
+          uuid: 'abc-123',
           secret: 'Q45TFIVGPFX4WORM',
           username: '@charlietango592',
           issuer: 'Twitter',
@@ -38,6 +40,7 @@ describe('should return initial state and handle actions', () => {
     previousState = {
       list: [
         {
+          uuid: 'abc-123',
           secret: 'Q45TFIVGPFX4WORM',
           username: '@charlietango592',
           issuer: 'Twitter',
@@ -50,6 +53,7 @@ describe('should return initial state and handle actions', () => {
       reducer(
         previousState,
         add({
+          uuid: 'abc-124',
           secret: 'A4JBUW7QCBPGQJOA',
           username: 'charlietango',
           issuer: 'Github',
@@ -59,12 +63,14 @@ describe('should return initial state and handle actions', () => {
     ).toEqual({
       list: [
         {
+          uuid: 'abc-123',
           secret: 'Q45TFIVGPFX4WORM',
           username: '@charlietango592',
           issuer: 'Twitter',
           color: '#1DA1F2',
         },
         {
+          uuid: 'abc-124',
           secret: 'A4JBUW7QCBPGQJOA',
           username: 'charlietango',
           issuer: 'Github',

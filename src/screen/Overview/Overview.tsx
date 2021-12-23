@@ -87,7 +87,7 @@ export default function Overview(): JSX.Element {
       <IconButton
         icon={Icon.settings}
         onPress={() => navigation.push('Settings')}
-        size={IconSize.medium}
+        size={IconSize.large}
       />
     );
   }

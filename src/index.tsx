@@ -1,4 +1,5 @@
 import registerRootComponent from 'expo/build/launch/registerRootComponent';
+import 'react-native-get-random-values';
 
 import App from './App';
 

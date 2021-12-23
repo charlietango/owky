@@ -9,6 +9,7 @@ import { PrimaryButton, SecondaryButton } from '@component/Button/Button';
 import ColorPicker from '@component/ColorPicker/ColorPicker';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { ParamListBase, useNavigation } from '@react-navigation/native';
+import { v4 as uuid } from 'uuid';
 
 const Container = styled(SafeAreaView)`
   background-color: #fff;
@@ -29,7 +30,7 @@ export default function AddAccount(): JSX.Element {
       Alert.alert('Empty form', 'Please fill the details in.');
       return;
     }
-    dispatch(add({ secret, username, issuer, color }));
+    dispatch(add({ uuid: uuid(), secret, username, issuer, color }));
     navigation.pop();
   };
 

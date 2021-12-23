@@ -9,6 +9,7 @@ import {
   FlingGestureHandler,
   FlingGestureHandlerEventPayload,
   HandlerStateChangeEvent,
+  LongPressGestureHandler,
   State,
 } from 'react-native-gesture-handler';
 import chroma from 'chroma-js';
@@ -17,7 +18,9 @@ import { generateTokenFromSecret } from '@helper/authenticator';
 import ProgressBar from '@component/ProgressBar/ProgressBar';
 import IconButton from '@component/IconButton/IconButton';
 import { Icon, IconSize } from '@component/IconButton/Icons';
-import { Account } from '@type/account';
+import { Account, Uuid } from '@type/account';
+import { useDispatch } from '@hook/store';
+import { remove } from '@slice/account';
 
 const Wrapper = styled(View)`
   width: 100%;
@@ -29,6 +32,13 @@ const Gradient = styled(LinearGradient)`
   padding: 15px;
   width: 100%;
   height: 120px;
+`;
+
+const DeleteButtonContainer = styled(View)`
+  position: absolute;
+  top: 2px;
+  left: 10px;
+  z-index: 1;
 `;
 
 const ContentWrapper = styled(View)`
@@ -64,9 +74,16 @@ interface TileProps {
   account: Account;
 }
 
+enum Mode {
+  Normal,
+  Reveal,
+  Delete,
+}
+
 export default function Tile({ account }: TileProps): JSX.Element {
+  const dispatch = useDispatch();
   const [token, setToken] = useState(generateTokenFromSecret(account.secret));
-  const [hidden, setHidden] = useState(true);
+  const [mode, setMode] = useState(Mode.Normal);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -80,7 +97,12 @@ export default function Tile({ account }: TileProps): JSX.Element {
 
   const handleFling = (event: HandlerStateChangeEvent<FlingGestureHandlerEventPayload>) => {
     if (event.nativeEvent.state === State.ACTIVE) {
-      setHidden(!hidden);
+      if (mode === Mode.Normal) {
+        setMode(Mode.Reveal);
+      }
+      if (mode === Mode.Reveal) {
+        setMode(Mode.Normal);
+      }
     }
   };
 
@@ -89,23 +111,50 @@ export default function Tile({ account }: TileProps): JSX.Element {
     Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
   };
 
+  const handleLongPress = (event: HandlerStateChangeEvent<LongPressGestureHandler>) => {
+    if (event.nativeEvent.state === State.ACTIVE) {
+      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
+      if (mode !== Mode.Delete) {
+        setMode(Mode.Delete);
+      } else {
+        setMode(Mode.Normal);
+      }
+    }
+  };
+
+  const handleDelete = (uuid: Uuid) => {
+    dispatch(remove(uuid));
+    setMode(Mode.Normal);
+  };
+
   return (
     <Wrapper>
+      {mode === Mode.Delete && (
+        <DeleteButtonContainer>
+          <IconButton
+            icon={Icon.delete}
+            size={IconSize.large}
+            onPress={() => handleDelete(account.uuid)}
+          />
+        </DeleteButtonContainer>
+      )}
       <Gradient colors={[chroma(account.color).saturate().hex(), account.color]}>
         <FlingGestureHandler
           direction={Directions.RIGHT | Directions.LEFT}
           onHandlerStateChange={handleFling}
         >
-          <ContentWrapper>
-            <DetailsWrapper>
-              <TokenLabel>{hidden ? '******' : token.token}</TokenLabel>
-              <UsernameLabel>{account.username}</UsernameLabel>
-              <IssuerLabel>{account.issuer}</IssuerLabel>
-            </DetailsWrapper>
-            <ActionsWrapper>
-              <IconButton icon={Icon.copy} size={IconSize.large} onPress={handleCopy} />
-            </ActionsWrapper>
-          </ContentWrapper>
+          <LongPressGestureHandler minDurationMs={300} onHandlerStateChange={handleLongPress}>
+            <ContentWrapper>
+              <DetailsWrapper>
+                <TokenLabel>{mode === Mode.Reveal ? token.token : '******'}</TokenLabel>
+                <UsernameLabel>{account.username}</UsernameLabel>
+                <IssuerLabel>{account.issuer}</IssuerLabel>
+              </DetailsWrapper>
+              <ActionsWrapper>
+                <IconButton icon={Icon.copy} size={IconSize.large} onPress={handleCopy} />
+              </ActionsWrapper>
+            </ContentWrapper>
+          </LongPressGestureHandler>
         </FlingGestureHandler>
         <ProgressBar timeRemaining={token.timeRemaining} />
       </Gradient>
