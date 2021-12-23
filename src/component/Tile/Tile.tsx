@@ -4,13 +4,11 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { Text, View } from 'react-native';
 import * as Clipboard from 'expo-clipboard';
 import * as Haptics from 'expo-haptics';
-import { NotificationFeedbackType } from 'expo-haptics';
 import {
   Directions,
   FlingGestureHandler,
   FlingGestureHandlerEventPayload,
   HandlerStateChangeEvent,
-  LongPressGestureHandler,
   State,
 } from 'react-native-gesture-handler';
 import chroma from 'chroma-js';
@@ -86,15 +84,9 @@ export default function Tile({ account }: TileProps): JSX.Element {
     }
   };
 
-  const handleLongPress = (event: HandlerStateChangeEvent<LongPressGestureHandler>) => {
-    if (event.nativeEvent.state === State.ACTIVE) {
-      console.log('long press');
-    }
-  };
-
   const handleCopy = () => {
     Clipboard.setString(token.token);
-    Haptics.notificationAsync(NotificationFeedbackType.Success);
+    Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
   };
 
   return (
@@ -104,18 +96,16 @@ export default function Tile({ account }: TileProps): JSX.Element {
           direction={Directions.RIGHT | Directions.LEFT}
           onHandlerStateChange={handleFling}
         >
-          <LongPressGestureHandler minDurationMs={800} onHandlerStateChange={handleLongPress}>
-            <ContentWrapper>
-              <DetailsWrapper>
-                <TokenLabel>{hidden ? '******' : token.token}</TokenLabel>
-                <UsernameLabel>{account.username}</UsernameLabel>
-                <IssuerLabel>{account.issuer}</IssuerLabel>
-              </DetailsWrapper>
-              <ActionsWrapper>
-                <IconButton icon={Icon.copy} size={IconSize.large} onPress={handleCopy} />
-              </ActionsWrapper>
-            </ContentWrapper>
-          </LongPressGestureHandler>
+          <ContentWrapper>
+            <DetailsWrapper>
+              <TokenLabel>{hidden ? '******' : token.token}</TokenLabel>
+              <UsernameLabel>{account.username}</UsernameLabel>
+              <IssuerLabel>{account.issuer}</IssuerLabel>
+            </DetailsWrapper>
+            <ActionsWrapper>
+              <IconButton icon={Icon.copy} size={IconSize.large} onPress={handleCopy} />
+            </ActionsWrapper>
+          </ContentWrapper>
         </FlingGestureHandler>
         <ProgressBar timeRemaining={token.timeRemaining} />
       </Gradient>
