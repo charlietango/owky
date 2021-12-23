@@ -56,6 +56,7 @@ export default function AddAccount(): JSX.Element {
         label={'Service provider website'}
         value={issuer}
         placeholder={'www.example.com'}
+        keyboardType={'email-address'}
         description={'Add the website so you can find your access token easily.'}
         onChange={(value: string) => setIssuer(value)}
       />
