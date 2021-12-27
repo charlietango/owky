@@ -18,7 +18,8 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true,
+      "bundleIdentifier": "xyz.owky.owky",
+      "buildNumber": "1.0.1",
       "infoPlist": {
         "NSFaceIDUsageDescription": "Authentication with TouchId or FaceID."
       }
