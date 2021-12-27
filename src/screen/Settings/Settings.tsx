@@ -1,6 +1,7 @@
 import { Text, View } from 'react-native';
 import React from 'react';
 import styled from 'styled-components';
+import * as LocalAuthentication from 'expo-local-authentication';
 
 import Switch from '@component/Switch/Switch';
 import { useDispatch, useSelector } from '@hook/store';
@@ -30,7 +31,13 @@ export default function Settings(): JSX.Element {
         checked={settings.localAuthenticationStatus}
         label={'Enable Face ID / Touch Id'}
         onChange={(value) => {
-          dispatch(setLocalAuthenticationStatus(value));
+          LocalAuthentication.authenticateAsync()
+            .then((result) => {
+              if (result.success) {
+                dispatch(setLocalAuthenticationStatus(value));
+              }
+            })
+            .catch((error) => console.error(error));
         }}
       />
     </Container>

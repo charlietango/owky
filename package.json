@@ -26,6 +26,7 @@
     "expo-clipboard": "~1.1.0",
     "expo-haptics": "~10.1.0",
     "expo-linear-gradient": "~9.2.0",
+    "expo-local-authentication": "~11.1.1",
     "expo-status-bar": "~1.0.4",
     "lodash": "^4.17.21",
     "react": "16.13.1",

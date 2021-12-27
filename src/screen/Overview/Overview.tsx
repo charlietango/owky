@@ -11,6 +11,7 @@ import Tile from '@component/Tile/Tile';
 import { useSelector } from '@hook/store';
 import EmptyList from '@screen/Overview/EmptyList';
 import SearchInput from '@component/SearchInput/SearchInput';
+import * as LocalAuthentication from 'expo-local-authentication';
 
 const Container = styled(SafeAreaView)`
   flex: 1;
@@ -24,6 +25,7 @@ export default function Overview(): JSX.Element {
   const [showHeader, setShowHeader] = useState(false);
   const [filterQuery, setFilterQuery] = useState<string | null>(null);
   const [accounts, setAccounts] = useState(storedAccounts);
+  const settings = useSelector((state) => state.settings);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -31,6 +33,12 @@ export default function Overview(): JSX.Element {
       headerLeft: renderSettingsButton,
     });
   });
+
+  useEffect(() => {
+    if (settings.localAuthenticationStatus === true) {
+      LocalAuthentication.authenticateAsync();
+    }
+  }, []);
 
   useEffect(() => {
     if (!filterQuery) {
