@@ -17,3 +17,6 @@ web-build/
 
 # jest
 coverage/
+
+# eas
+eas.json
