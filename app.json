@@ -1,7 +1,8 @@
 {
   "expo": {
     "name": "Owky - Own your keys",
-    "slug": "owky-mobile-app",
+    "slug": "owky",
+    "owner": "charlietango8",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -17,7 +18,10 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSFaceIDUsageDescription": "Authentication with TouchId or FaceID."
+      }
     },
     "android": {
       "adaptiveIcon": {
