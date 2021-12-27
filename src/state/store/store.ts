@@ -4,9 +4,11 @@ import { persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } fro
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import accountReducer from '@slice/account';
+import settingsReducer from '@slice/settings';
 
 const reducers = combineReducers({
   account: accountReducer,
+  settings: settingsReducer,
 });
 const persistedReducers = persistReducer({ key: 'root', storage: AsyncStorage }, reducers);
 
