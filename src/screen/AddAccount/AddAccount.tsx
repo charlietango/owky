@@ -1,4 +1,4 @@
-import { Alert, SafeAreaView } from 'react-native';
+import { Alert, ScrollView } from 'react-native';
 import React, { useState } from 'react';
 
 import { useDispatch } from '@hook/store';
@@ -11,7 +11,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { ParamListBase, useNavigation } from '@react-navigation/native';
 import { v4 as uuid } from 'uuid';
 
-const Container = styled(SafeAreaView)`
+const Container = styled(ScrollView)`
   background-color: #fff;
   flex: 1;
 `;
