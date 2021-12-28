@@ -15,8 +15,10 @@ const handleLocalAuthentication = () => {
   SplashScreen.preventAutoHideAsync();
   const { settings } = store.getState();
   if (settings.localAuthenticationStatus === true) {
-    LocalAuthentication.authenticateAsync().then(() => {
-      SplashScreen.hideAsync();
+    LocalAuthentication.authenticateAsync().then((result) => {
+      if (result.success) {
+        SplashScreen.hideAsync();
+      }
     });
   } else {
     SplashScreen.hideAsync();
