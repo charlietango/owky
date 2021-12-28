@@ -49,6 +49,7 @@ export default function TextInput(props: TextInputProps): JSX.Element {
         value={props.value}
         placeholder={props.placeholder}
         onChangeText={props.onChange}
+        maxLength={80}
         keyboardType={props.keyboardType || 'default'}
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
