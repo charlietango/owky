@@ -40,6 +40,8 @@ const DeleteButtonContainer = styled(View)`
 
 const ContentWrapper = styled(View)`
   flex-direction: row;
+  justify-content: space-between;
+  padding-right: 4px;
 `;
 
 const DetailsWrapper = styled(View)`
