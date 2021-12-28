@@ -19,9 +19,12 @@ export const accountSlice = createSlice({
     remove: (state, action: PayloadAction<string>) => {
       state.list = state.list.filter((account) => account.uuid !== action.payload);
     },
+    wipe: (state) => {
+      state.list = [];
+    },
   },
 });
 
-export const { add, remove } = accountSlice.actions;
+export const { add, remove, wipe } = accountSlice.actions;
 
 export default accountSlice.reducer;
