@@ -9,7 +9,7 @@
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#2B235F"
+      "backgroundColor": "#240046"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -17,7 +17,7 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "bundleIdentifier": "xyz.owky.owky",
-      "buildNumber": "1.0.2",
+      "buildNumber": "1.0.4",
       "supportsTablet": false,
       "infoPlist": {
         "NSFaceIDUsageDescription": "Authentication with TouchId or FaceID."
