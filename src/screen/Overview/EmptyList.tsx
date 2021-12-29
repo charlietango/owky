@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { SecondaryButton } from '@component/Button/Button';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { ParamListBase, useNavigation } from '@react-navigation/native';
+import Note from '@component/Note/Note';
 
 const Container = styled(View)`
   flex: 1;
@@ -17,7 +18,15 @@ export default function EmptyList(): JSX.Element {
 
   return (
     <Container>
-      <SecondaryButton title={'Add Account'} onPress={() => navigation.push('Add')} />
+      <View style={{ margin: 16 }}>
+        <Note
+          content={
+            'It looks a bit empty here! Add some accounts and Owky will manage your Two-Factor codes. ⚡️'
+          }
+        >
+          <SecondaryButton title={'New Account'} onPress={() => navigation.push('Add')} />
+        </Note>
+      </View>
     </Container>
   );
 }

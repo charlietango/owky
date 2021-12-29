@@ -1,4 +1,4 @@
-import { Alert, ScrollView } from 'react-native';
+import { Alert, ScrollView, View } from 'react-native';
 import React, { useState } from 'react';
 
 import { useDispatch } from '@hook/store';
@@ -10,6 +10,7 @@ import ColorPicker from '@component/ColorPicker/ColorPicker';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { ParamListBase, useNavigation } from '@react-navigation/native';
 import { v4 as uuid } from 'uuid';
+import Note from '@component/Note/Note';
 
 const Container = styled(ScrollView)`
   background-color: #fff;
@@ -63,15 +64,13 @@ export default function AddAccount(): JSX.Element {
       />
       <ColorPicker onSelect={setColor} />
       <PrimaryButton title={'Add'} onPress={handleAdd} />
-      <SecondaryButton
-        title={'Fill by scanning QR'}
-        onPress={() =>
-          Alert.alert(
-            'Coming soon!',
-            'This functionality is work in progress. Till it gets released please fill in the details by hand.',
-          )
-        }
-      />
+      <View style={{ margin: 16 }}>
+        <Note
+          content={
+            'You will soon be able to fill in these details by scanning QR codes. Stay tuned!'
+          }
+        />
+      </View>
     </Container>
   );
 }
