@@ -1,38 +1,61 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { persistStore } from 'redux-persist';
 import * as SplashScreen from 'expo-splash-screen';
+import { AppState, AppStateStatus } from 'react-native';
 
 import MainStackNavigator from '@navigation/MainStackNavigator';
 import { store } from '@store/store';
 import * as LocalAuthentication from 'expo-local-authentication';
+import LockScreen from '@screen/LockScreen/LockScreen';
 
 const persistor = persistStore(store);
 
-const handleLocalAuthentication = () => {
-  SplashScreen.preventAutoHideAsync();
+const handleLocalAuthentication = (onSuccess: () => void) => {
   const { settings } = store.getState();
   if (settings.localAuthenticationStatus === true) {
     LocalAuthentication.authenticateAsync().then((result) => {
       if (result.success) {
-        SplashScreen.hideAsync();
+        onSuccess();
       }
     });
   } else {
-    SplashScreen.hideAsync();
+    onSuccess();
   }
 };
 
 export default function App(): JSX.Element {
-  useEffect(handleLocalAuthentication, []);
+  const appState = useRef(AppState.currentState);
+  const [showLockScreen, setShowLockScreen] = useState(false);
+
+  useEffect(() => {
+    SplashScreen.preventAutoHideAsync();
+    handleLocalAuthentication(() => SplashScreen.hideAsync());
+    AppState.addEventListener('change', handleAppStateChange);
+  }, []);
+
+  const handleAppStateChange = (nextAppState: AppStateStatus) => {
+    if (appState.current === 'active' && nextAppState === 'inactive') {
+      setShowLockScreen(true);
+    }
+    if (appState.current === 'inactive' && nextAppState === 'active') {
+      setShowLockScreen(false);
+    }
+
+    if (appState.current === 'background' && nextAppState === 'active') {
+      handleLocalAuthentication(() => setShowLockScreen(false));
+    }
+
+    appState.current = nextAppState;
+  };
 
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <StatusBar style={'auto'} />
-        <MainStackNavigator />
+        {showLockScreen ? <LockScreen /> : <MainStackNavigator />}
       </PersistGate>
     </Provider>
   );
