@@ -49,7 +49,7 @@ export function SecondaryButton({ title, onPress }: ButtonProps): JSX.Element {
     <BasePressableArea
       style={({ pressed }) => [
         {
-          backgroundColor: pressed ? '#fafafa' : '#ffffff',
+          backgroundColor: pressed ? '#ffffff55' : '#ffffff00',
         },
       ]}
       onPress={onPress}
