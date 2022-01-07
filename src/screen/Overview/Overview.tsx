@@ -11,6 +11,7 @@ import Tile from '@component/Tile/Tile';
 import { useSelector } from '@hook/store';
 import EmptyList from '@screen/Overview/EmptyList';
 import SearchInput from '@component/SearchInput/SearchInput';
+import Attribution from '@component/Attribution/Attribution';
 
 const Container = styled(SafeAreaView)`
   flex: 1;
@@ -73,6 +74,9 @@ export default function Overview(): JSX.Element {
               onChangeText={(value: string) => setFilterQuery(value)}
             />
           ) : null
+        }
+        ListFooterComponent={
+          <Attribution message={'Logos provided by UpLead'} goToUrl={'https://www.uplead.com/'} />
         }
         renderItem={(item) => <Tile account={item.item} />}
         keyExtractor={(item, index) => index.toString()}

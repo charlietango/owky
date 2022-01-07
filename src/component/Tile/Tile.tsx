@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Text, View } from 'react-native';
+import { Image, Text, View } from 'react-native';
 import * as Clipboard from 'expo-clipboard';
 import * as Haptics from 'expo-haptics';
 import {
@@ -55,8 +55,24 @@ const ActionsWrapper = styled(View)`
 const TokenLabel = styled(Text)`
   font-size: 40px;
   line-height: 48px;
-  font-weight: 900;
+  font-weight: 700;
   color: white;
+`;
+
+const LogoAndDetailsWrapper = styled(View)`
+  flex-direction: row;
+  align-items: center;
+`;
+
+const AccountDetailsWrapper = styled(View)`
+  flex-direction: column;
+`;
+
+const Logo = styled(Image)`
+  width: 25px;
+  height: 25px;
+  margin-right: 5px;
+  border-radius: 5px;
 `;
 
 const UsernameLabel = styled(Text)`
@@ -83,6 +99,7 @@ export default function Tile({ account }: TileProps): JSX.Element {
   const dispatch = useDispatch();
   const [token, setToken] = useState(generateTokenFromSecret(account.secret));
   const [mode, setMode] = useState(Mode.Normal);
+  const logoUri = account.issuer.replace('www.', '').replace('http://', '').replace('https://', '');
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -131,8 +148,13 @@ export default function Tile({ account }: TileProps): JSX.Element {
           <ContentWrapper>
             <DetailsWrapper>
               <TokenLabel>{token.token}</TokenLabel>
-              <UsernameLabel>{account.username}</UsernameLabel>
-              <IssuerLabel>{account.issuer}</IssuerLabel>
+              <LogoAndDetailsWrapper>
+                <Logo source={{ uri: `https://logo.uplead.com/${logoUri}` }} />
+                <AccountDetailsWrapper>
+                  <UsernameLabel>{account.username}</UsernameLabel>
+                  <IssuerLabel>{account.issuer}</IssuerLabel>
+                </AccountDetailsWrapper>
+              </LogoAndDetailsWrapper>
             </DetailsWrapper>
             <ActionsWrapper>
               <IconButton icon={Icon.copy} size={IconSize.large} onPress={handleCopy} />
