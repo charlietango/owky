@@ -9,7 +9,7 @@ const Container = styled(View)`
 `;
 
 const Content = styled(Text)`
-  color: #212f45;
+  color: #343a40;
 `;
 
 type NoteProps = {

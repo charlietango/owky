@@ -10,7 +10,7 @@ const Container = styled(View)`
 `;
 
 const Message = styled(Text)`
-  color: #212f45;
+  color: #343a40;
   font-size: 12px;
 `;
 

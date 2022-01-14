@@ -27,7 +27,7 @@ type ColorPickerProps = {
 
 const colors = [
   '#cccccc',
-  '#212F45',
+  '#343A40',
   '#F9C74F',
   '#EF476F',
   '#E7A1FF',
