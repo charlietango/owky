@@ -31,7 +31,15 @@ export default function AddAccount(): JSX.Element {
       Alert.alert('Empty form', 'Please fill the details in.');
       return;
     }
-    dispatch(add({ uuid: uuid(), secret, username, issuer, color }));
+    dispatch(
+      add({
+        uuid: uuid(),
+        secret: secret.toUpperCase(),
+        username: username.toLowerCase(),
+        issuer: issuer.toLowerCase(),
+        color,
+      }),
+    );
     navigation.pop();
   };
 
@@ -64,13 +72,10 @@ export default function AddAccount(): JSX.Element {
       />
       <ColorPicker onSelect={setColor} />
       <PrimaryButton title={'Add'} onPress={handleAdd} />
-      <View style={{ margin: 16 }}>
-        <Note
-          content={
-            'You will soon be able to fill in these details by scanning QR codes. Stay tuned!'
-          }
-        />
-      </View>
+      <SecondaryButton
+        title={'Scan QR'}
+        onPress={() => navigation.navigate('QrScanner', { setSecret, setUsername, setIssuer })}
+      />
     </Container>
   );
 }
