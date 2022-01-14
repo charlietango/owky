@@ -76,7 +76,9 @@ export default function Overview(): JSX.Element {
           ) : null
         }
         ListFooterComponent={
-          <Attribution message={'Logos provided by UpLead'} goToUrl={'https://www.uplead.com/'} />
+          accounts.length > 0 ? (
+            <Attribution message={'Logos provided by UpLead'} goToUrl={'https://www.uplead.com/'} />
+          ) : null
         }
         renderItem={(item) => <Tile account={item.item} />}
         keyExtractor={(item, index) => index.toString()}
