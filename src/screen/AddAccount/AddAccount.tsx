@@ -1,4 +1,4 @@
-import { Alert, ScrollView, View } from 'react-native';
+import { Alert, ScrollView } from 'react-native';
 import React, { useState } from 'react';
 
 import { useDispatch } from '@hook/store';
@@ -10,12 +10,13 @@ import ColorPicker from '@component/ColorPicker/ColorPicker';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { ParamListBase, useNavigation } from '@react-navigation/native';
 import { v4 as uuid } from 'uuid';
-import Note from '@component/Note/Note';
 
 const Container = styled(ScrollView)`
   background-color: #fff;
   flex: 1;
 `;
+
+const domainRegex = /(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z0-9][a-z0-9-]{0,61}[a-z0-9]/;
 
 export default function AddAccount(): JSX.Element {
   const [secret, setSecret] = useState('');
@@ -31,6 +32,15 @@ export default function AddAccount(): JSX.Element {
       Alert.alert('Empty form', 'Please fill the details in.');
       return;
     }
+
+    if (!issuer.match(domainRegex)) {
+      Alert.alert(
+        'Invalid website',
+        'The service provider website must be a valid domain. For example: foo.com',
+      );
+      return;
+    }
+
     dispatch(
       add({
         uuid: uuid(),
@@ -66,7 +76,6 @@ export default function AddAccount(): JSX.Element {
         label={'Service provider website'}
         value={issuer}
         placeholder={'www.example.com'}
-        keyboardType={'email-address'}
         description={'Add the website so you can find your access token easily.'}
         onChange={(value: string) => setIssuer(value)}
       />
