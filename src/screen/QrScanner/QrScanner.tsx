@@ -1,4 +1,4 @@
-import { Text, View, StyleSheet, Linking } from 'react-native';
+import { View, StyleSheet, Linking } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { BarCodeEvent, BarCodeScanner } from 'expo-barcode-scanner';

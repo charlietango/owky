@@ -35,7 +35,7 @@ export default function AddAccount(): JSX.Element {
 
     if (!issuer.match(domainRegex)) {
       Alert.alert(
-        'Invalid website',
+        'Invalid provider website',
         'The service provider website must be a valid domain. For example: foo.com',
       );
       return;
