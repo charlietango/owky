@@ -1,10 +1,4 @@
-import {
-  FlatList,
-  NativeScrollEvent,
-  NativeSyntheticEvent,
-  SafeAreaView,
-  Text,
-} from 'react-native';
+import { FlatList, NativeScrollEvent, NativeSyntheticEvent, SafeAreaView } from 'react-native';
 import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { ParamListBase, useNavigation } from '@react-navigation/native';
@@ -18,6 +12,7 @@ import { useSelector } from '@hook/store';
 import EmptyList from '@screen/Overview/EmptyList';
 import SearchInput from '@component/SearchInput/SearchInput';
 import Attribution from '@component/Attribution/Attribution';
+import NoSearchResults from '@screen/Overview/NoSearchResults';
 
 const Container = styled(SafeAreaView)`
   flex: 1;
@@ -74,7 +69,7 @@ export default function Overview(): JSX.Element {
     <Container>
       <FlatList
         data={accounts}
-        ListEmptyComponent={storedAccounts.length === 0 ? <EmptyList /> : <Text>No results</Text>}
+        ListEmptyComponent={storedAccounts.length === 0 ? <EmptyList /> : <NoSearchResults />}
         contentContainerStyle={{ flexGrow: 1 }}
         ListHeaderComponent={
           showHeader ? (
