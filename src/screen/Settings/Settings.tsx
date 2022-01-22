@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from '@hook/store';
 import { setLocalAuthenticationStatus } from '@slice/settings';
 import { DangerButton } from '@component/Button/Button';
 import { wipe } from '@slice/account';
-import Note from '@component/Note/Note';
+import Message from '@component/Message/Message';
 
 const Container = styled(View)`
   background-color: #fff;
@@ -61,7 +61,7 @@ export default function Settings(): JSX.Element {
       />
       <SectionTitle>Data</SectionTitle>
       <DangerButton title={'Wipe all data'} onPress={handleDataWipe} />
-      <Note
+      <Message
         content={
           'Thank you for using Owky! Really! The app is and will remain free and opensource. Owky is made by one person, as a side project. Next features: backup & restore, QR scanning, dark mode, and maybe Android support. All in all, I want to keep it nice and simple. If you want to get in touch, you can use catalin@charlietango.co. Cheers!'
         }
