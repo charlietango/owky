@@ -17,10 +17,11 @@ const Container = styled(View)`
 `;
 
 const SectionTitle = styled(Text)`
-  font-size: 13px;
+  font-size: 12px;
   line-height: 14px;
-  color: #007aff;
-  margin: 8px 0;
+  color: #343a40;
+  font-weight: 600;
+  margin-top: 12px;
 `;
 
 export default function Settings(): JSX.Element {
