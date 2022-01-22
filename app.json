@@ -18,7 +18,7 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "bundleIdentifier": "xyz.owky.owky",
-      "buildNumber": "1.0.7",
+      "buildNumber": "1.0.8",
       "supportsTablet": false,
       "infoPlist": {
         "NSFaceIDUsageDescription": "Authentication with TouchId or FaceID."
