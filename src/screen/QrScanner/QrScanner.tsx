@@ -6,7 +6,7 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import * as Haptics from 'expo-haptics';
 import url from 'url';
 import Note from '@component/Note/Note';
-import { SecondaryButton } from '@component/Button/Button';
+import { PrimaryButton } from '@component/Button/Button';
 
 const Container = styled(View)`
   background-color: #fff;
@@ -53,14 +53,13 @@ export default function QrScanner(): JSX.Element {
   if (!hasPermission) {
     return (
       <Container>
-        <Note content={'Owky does not have permissions to use your camera.'}>
-          <SecondaryButton
-            title={'Go to Settings'}
-            onPress={() => {
-              Linking.openURL('app-settings:');
-            }}
-          />
-        </Note>
+        <Note content={'Owky does not have permissions to use your camera.'} />
+        <PrimaryButton
+          title={'Go to Settings'}
+          onPress={() => {
+            Linking.openURL('app-settings:');
+          }}
+        />
       </Container>
     );
   }

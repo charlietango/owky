@@ -1,7 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
 import styled from 'styled-components';
-import { SecondaryButton } from '@component/Button/Button';
+import { PrimaryButton } from '@component/Button/Button';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { ParamListBase, useNavigation } from '@react-navigation/native';
 import Note from '@component/Note/Note';
@@ -18,15 +18,12 @@ export default function EmptyList(): JSX.Element {
 
   return (
     <Container>
-      <View style={{ margin: 16 }}>
-        <Note
-          content={
-            'It looks a bit empty here! Add some accounts and Owky will manage your Two-Factor codes. ⚡️'
-          }
-        >
-          <SecondaryButton title={'New Account'} onPress={() => navigation.push('Add')} />
-        </Note>
-      </View>
+      <Note
+        content={
+          'It looks a bit empty here! Add some accounts and Owky will manage your Two-Factor codes. ⚡️'
+        }
+      />
+      <PrimaryButton title={'New Account'} onPress={() => navigation.push('Add')} />
     </Container>
   );
 }
