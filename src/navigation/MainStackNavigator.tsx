@@ -6,13 +6,18 @@ import Overview from '@screen/Overview/Overview';
 import Settings from '@screen/Settings/Settings';
 import AddAccount from '@screen/AddAccount/AddAccount';
 import QrScanner from '@screen/QrScanner/QrScanner';
+import { useTheme } from 'styled-components';
 
 const Stack = createNativeStackNavigator();
 
 export default function MainStackNavigator(): JSX.Element {
+  const theme = useTheme();
+
   const headerDefaultOptions = {
     headerLargeTitle: true,
     headerShadowVisible: false,
+    headerStyle: { backgroundColor: theme.backgroundColor },
+    headerTitleStyle: { color: theme.textColorPrimary },
   };
 
   return (

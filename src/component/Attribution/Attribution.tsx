@@ -10,7 +10,7 @@ const Container = styled(View)`
 `;
 
 const Message = styled(Text)`
-  color: #343a40;
+  color: ${({ theme }) => theme.textColorPrimary};
   font-size: 12px;
 `;
 

@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 const Progress = styled(Animated.View)`
   height: 7px;
-  background-color: #ffffff77;
+  background-color: ${({ theme }) => theme.transparent30};
   position: absolute;
   bottom: 0;
   left: 0;

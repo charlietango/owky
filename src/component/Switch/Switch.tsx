@@ -13,13 +13,14 @@ const Container = styled(View)`
   align-items: center;
   justify-content: space-between;
   border-bottom-width: 0.3px;
-  border-bottom-color: #c8c7cc;
+  border-bottom-color: ${({ theme }) => theme.borderColorLight};
   padding: 8px 0;
 `;
 
 const Label = styled(Text)`
   font-size: 16px;
   line-height: 19px;
+  color: ${({ theme }) => theme.textColorPrimary};
 `;
 
 export default function Switch(props: SwitchProps): JSX.Element {

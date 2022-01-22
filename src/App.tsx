@@ -4,12 +4,14 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { persistStore } from 'redux-persist';
 import * as SplashScreen from 'expo-splash-screen';
-import { AppState, AppStateStatus } from 'react-native';
+import { AppState, AppStateStatus, useColorScheme } from 'react-native';
+import { ThemeProvider } from 'styled-components';
 
 import MainStackNavigator from '@navigation/MainStackNavigator';
 import { store } from '@store/store';
 import * as LocalAuthentication from 'expo-local-authentication';
 import LockScreen from '@screen/LockScreen/LockScreen';
+import { lightTheme, darkTheme } from './theme/theme';
 
 const persistor = persistStore(store);
 
@@ -29,6 +31,7 @@ const handleLocalAuthentication = (onSuccess: () => void) => {
 export default function App(): JSX.Element {
   const appState = useRef(AppState.currentState);
   const [showLockScreen, setShowLockScreen] = useState(false);
+  const colorScheme = useColorScheme();
 
   useEffect(() => {
     SplashScreen.preventAutoHideAsync();
@@ -54,8 +57,10 @@ export default function App(): JSX.Element {
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        <StatusBar style={'auto'} />
-        {showLockScreen ? <LockScreen /> : <MainStackNavigator />}
+        <ThemeProvider theme={colorScheme === 'dark' ? darkTheme : lightTheme}>
+          <StatusBar style={colorScheme === 'dark' ? 'light' : 'dark'} />
+          {showLockScreen ? <LockScreen /> : <MainStackNavigator />}
+        </ThemeProvider>
       </PersistGate>
     </Provider>
   );

@@ -12,7 +12,7 @@ import { ParamListBase, useNavigation } from '@react-navigation/native';
 import { v4 as uuid } from 'uuid';
 
 const Container = styled(ScrollView)`
-  background-color: #fff;
+  background-color: ${({ theme }) => theme.backgroundColor};
   flex: 1;
 `;
 

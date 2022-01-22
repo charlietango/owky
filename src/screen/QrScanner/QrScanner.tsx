@@ -9,7 +9,7 @@ import Note from '@component/Note/Note';
 import { PrimaryButton } from '@component/Button/Button';
 
 const Container = styled(View)`
-  background-color: #fff;
+  background-color: ${({ theme }) => theme.backgroundColor};
   flex: 1;
   justify-content: center;
   align-items: center;

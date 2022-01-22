@@ -1,9 +1,15 @@
-import { FlatList, NativeScrollEvent, NativeSyntheticEvent, SafeAreaView } from 'react-native';
+import {
+  FlatList,
+  NativeScrollEvent,
+  NativeSyntheticEvent,
+  SafeAreaView,
+  Text,
+} from 'react-native';
 import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { ParamListBase, useNavigation } from '@react-navigation/native';
 import * as Haptics from 'expo-haptics';
-import styled from 'styled-components';
+import styled, { useTheme } from 'styled-components';
 
 import IconButton from '@component/IconButton/IconButton';
 import { Icon, IconSize } from '@component/IconButton/Icons';
@@ -15,12 +21,13 @@ import Attribution from '@component/Attribution/Attribution';
 
 const Container = styled(SafeAreaView)`
   flex: 1;
-  background-color: white;
+  background-color: ${({ theme }) => theme.backgroundColor};
 `;
 
 export default function Overview(): JSX.Element {
   const navigation: NativeStackNavigationProp<ParamListBase> = useNavigation();
   const storedAccounts = useSelector((state) => state.account.list);
+  const theme = useTheme();
 
   const [showHeader, setShowHeader] = useState(false);
   const [filterQuery, setFilterQuery] = useState<string | null>(null);
@@ -28,6 +35,8 @@ export default function Overview(): JSX.Element {
 
   useLayoutEffect(() => {
     navigation.setOptions({
+      headerStyle: { backgroundColor: theme.backgroundColor },
+      headerTitleStyle: { color: theme.textColorPrimary },
       headerRight: renderAddButton,
       headerLeft: renderSettingsButton,
     });
@@ -65,7 +74,7 @@ export default function Overview(): JSX.Element {
     <Container>
       <FlatList
         data={accounts}
-        ListEmptyComponent={<EmptyList />}
+        ListEmptyComponent={storedAccounts.length === 0 ? <EmptyList /> : <Text>No results</Text>}
         contentContainerStyle={{ flexGrow: 1 }}
         ListHeaderComponent={
           showHeader ? (

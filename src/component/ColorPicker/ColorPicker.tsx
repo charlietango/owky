@@ -10,9 +10,10 @@ const Container = styled(View)`
 `;
 
 const Label = styled(Text)`
-  color: #007aff;
   font-size: 12px;
   line-height: 14px;
+  color: ${({ theme }) => theme.textColorPrimary};
+  font-weight: 600;
   margin-bottom: 12px;
 `;
 

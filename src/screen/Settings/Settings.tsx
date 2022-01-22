@@ -11,7 +11,7 @@ import { wipe } from '@slice/account';
 import Message from '@component/Message/Message';
 
 const Container = styled(View)`
-  background-color: #fff;
+  background-color: ${({ theme }) => theme.backgroundColor};
   flex: 1;
   padding: 10px 17px;
 `;
@@ -19,7 +19,7 @@ const Container = styled(View)`
 const SectionTitle = styled(Text)`
   font-size: 12px;
   line-height: 14px;
-  color: #343a40;
+  color: ${({ theme }) => theme.textColorPrimary};
   font-weight: 600;
   margin-top: 12px;
 `;

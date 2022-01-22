@@ -7,7 +7,7 @@ const Container = styled(View)`
 `;
 
 const Content = styled(Text)`
-  color: #343a40;
+  color: ${({ theme }) => theme.textColorPrimary};
   text-align: center;
 `;
 

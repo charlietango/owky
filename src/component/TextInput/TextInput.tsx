@@ -1,6 +1,6 @@
 import { View, Text, TextInput as NativeTextInput, KeyboardType } from 'react-native';
 import React, { useState } from 'react';
-import styled from 'styled-components';
+import styled, { useTheme } from 'styled-components';
 
 type TextInputProps = {
   label: string;
@@ -16,29 +16,32 @@ const Container = styled(View)`
 `;
 
 const Label = styled(Text)`
-  color: #343a40;
+  color: ${({ theme }) => theme.textColorPrimary};
   font-size: 12px;
   font-weight: 600;
   line-height: 14px;
 `;
 
 const Description = styled(Text)`
-  color: #6c757d;
+  color: ${({ theme }) => theme.textColorSecondary};
   font-size: 12px;
   line-height: 14px;
 `;
 
 const Input = styled(NativeTextInput)<{ focused: boolean }>`
-  border: ${({ focused }) => (focused ? '1px solid #343a40' : '1px solid #6C757D')};
+  border: 1px solid
+    ${({ focused, theme }) => (focused ? theme.borderColorFocus : theme.borderColorBlur)};
   padding: 12px;
   font-size: 18px;
   line-height: 21px;
   border-radius: 5px;
   margin: 6px 0;
+  color: ${({ theme }) => theme.textColorPrimary};
 `;
 
 export default function TextInput(props: TextInputProps): JSX.Element {
   const [focused, setFocused] = useState(false);
+  const theme = useTheme();
 
   return (
     <Container>
@@ -49,6 +52,7 @@ export default function TextInput(props: TextInputProps): JSX.Element {
         autoCapitalize={'none'}
         value={props.value}
         placeholder={props.placeholder}
+        placeholderTextColor={theme.textColorSecondary}
         onChangeText={props.onChange}
         maxLength={80}
         keyboardType={props.keyboardType || 'default'}

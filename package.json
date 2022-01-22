@@ -5,7 +5,8 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "lint": "eslint src",
-    "test": "jest"
+    "test": "jest",
+    "build:ios": "eas build --platform ios"
   },
   "dependencies": {
     "@otplib/core": "^12.0.1",

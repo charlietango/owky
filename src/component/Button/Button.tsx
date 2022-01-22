@@ -1,6 +1,6 @@
 import React from 'react';
 import { Pressable, Text } from 'react-native';
-import styled from 'styled-components';
+import styled, { useTheme } from 'styled-components';
 
 const BasePressableArea = styled(Pressable)`
   height: 50px;
@@ -22,7 +22,7 @@ type ButtonProps = {
 };
 
 const PrimaryButtonLabel = styled(BaseButtonLabel)`
-  color: #ffffff;
+  color: ${({ theme }) => theme.textColorAction};
 `;
 
 export function PrimaryButton({ title, onPress }: ButtonProps): JSX.Element {
@@ -41,7 +41,7 @@ export function PrimaryButton({ title, onPress }: ButtonProps): JSX.Element {
 }
 
 const SecondaryButtonLabel = styled(BaseButtonLabel)`
-  color: #007aff;
+  color: ${({ theme }) => theme.accentColor};
 `;
 
 export function SecondaryButton({ title, onPress }: ButtonProps): JSX.Element {
@@ -66,18 +66,20 @@ const DangerPressableArea = styled(Pressable)`
   justify-content: center;
   border-bottom-width: 0.3px;
   border-bottom-color: #c8c7cc;
+  background-color: ${({ theme }) => theme.transparent100};
 `;
 
 const DangerButtonLabel = styled(BaseButtonLabel)`
-  color: #ff3b30;
+  color: ${({ theme }) => theme.dangerColor};
 `;
 
 export function DangerButton({ title, onPress }: ButtonProps): JSX.Element {
+  const theme = useTheme();
   return (
     <DangerPressableArea
       style={({ pressed }) => [
         {
-          backgroundColor: pressed ? '#fafafa' : '#ffffff',
+          backgroundColor: pressed ? theme.transparent10 : theme.transparent100,
         },
       ]}
       onPress={onPress}

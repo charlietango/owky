@@ -4,13 +4,13 @@ import styled from 'styled-components';
 
 const Container = styled(View)`
   margin: 20px 0;
-  border-left-color: #343a40;
+  border-left-color: ${({ theme }) => theme.textColorPrimary};
   border-left-width: 1.5px;
   padding-left: 8px;
 `;
 
 const Content = styled(Text)`
-  color: #343a40;
+  color: ${({ theme }) => theme.textColorPrimary};
 `;
 
 type NoteProps = {
