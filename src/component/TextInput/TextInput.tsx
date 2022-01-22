@@ -16,19 +16,20 @@ const Container = styled(View)`
 `;
 
 const Label = styled(Text)`
-  color: #007aff;
+  color: #343a40;
   font-size: 12px;
+  font-weight: 600;
   line-height: 14px;
 `;
 
 const Description = styled(Text)`
-  color: #aca8a8;
+  color: #6c757d;
   font-size: 12px;
   line-height: 14px;
 `;
 
 const Input = styled(NativeTextInput)<{ focused: boolean }>`
-  border: ${({ focused }) => (focused ? '1px solid #007aff' : '1px solid #47484b')};
+  border: ${({ focused }) => (focused ? '1px solid #343a40' : '1px solid #6C757D')};
   padding: 12px;
   font-size: 18px;
   line-height: 21px;
