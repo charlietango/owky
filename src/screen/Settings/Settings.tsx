@@ -56,7 +56,7 @@ export default function Settings(): JSX.Element {
       <SectionTitle>Security & Privacy</SectionTitle>
       <Switch
         checked={settings.localAuthenticationStatus}
-        label={'Enable Face ID / Touch Id'}
+        label={'Enable Face ID / Touch ID'}
         onChange={handleLocalAuthenticationChange}
       />
       <SectionTitle>Data</SectionTitle>

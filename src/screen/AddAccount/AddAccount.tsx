@@ -68,7 +68,7 @@ export default function AddAccount(): JSX.Element {
         placeholder={'jane.doe@example.com'}
         keyboardType={'email-address'}
         description={
-          'Add your username / email to be able to manage multiple accounts on the same website.'
+          'Add your username/email to be able to manage multiple accounts on the same website.'
         }
         onChange={(value: string) => setUsername(value)}
       />
@@ -76,7 +76,7 @@ export default function AddAccount(): JSX.Element {
         label={'Service provider website'}
         value={issuer}
         placeholder={'www.example.com'}
-        description={'Add the website so you can find your access token easily.'}
+        description={'We ask for this because we want to display the logo.'}
         onChange={(value: string) => setIssuer(value)}
       />
       <ColorPicker onSelect={setColor} />
