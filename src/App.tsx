@@ -59,7 +59,8 @@ export default function App(): JSX.Element {
       <PersistGate loading={null} persistor={persistor}>
         <ThemeProvider theme={colorScheme === 'dark' ? darkTheme : lightTheme}>
           <StatusBar style={colorScheme === 'dark' ? 'light' : 'dark'} />
-          {showLockScreen ? <LockScreen /> : <MainStackNavigator />}
+          <MainStackNavigator />
+          {showLockScreen && <LockScreen />}
         </ThemeProvider>
       </PersistGate>
     </Provider>

@@ -3,7 +3,9 @@ import { Image, SafeAreaView } from 'react-native';
 import styled from 'styled-components';
 
 const Container = styled(SafeAreaView)`
-  flex: 1;
+  position: absolute;
+  width: 100%;
+  height: 100%;
   background-color: ${({ theme }) => theme.splashScreenBackgroundColor};
 `;
 
