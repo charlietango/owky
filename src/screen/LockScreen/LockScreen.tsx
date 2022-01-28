@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 const Container = styled(SafeAreaView)`
   flex: 1;
-  background-color: ${({ theme }) => theme.textColorPrimary};
+  background-color: ${({ theme }) => theme.splashScreenBackgroundColor};
 `;
 
 export default function LockScreen(): JSX.Element {

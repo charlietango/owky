@@ -6,6 +6,7 @@ declare module 'styled-components' {
   export interface DefaultTheme {
     backgroundColor: string;
     backgroundColorSecondary: string;
+    splashScreenBackgroundColor: string;
     textColorPrimary: string;
     textColorSecondary: string;
     textColorAction: string;
