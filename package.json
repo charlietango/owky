@@ -5,7 +5,8 @@
     "ios": "expo start --ios",
     "lint": "eslint src",
     "test": "jest",
-    "build:ios": "eas build --platform ios"
+    "build:ios": "eas build --platform ios",
+    "submit:ios": "eas submit --platform ios"
   },
   "dependencies": {
     "@otplib/core": "^12.0.1",
