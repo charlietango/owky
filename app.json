@@ -3,7 +3,7 @@
     "name": "Owky - Own your keys",
     "slug": "owky",
     "owner": "charlietango8",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic",
@@ -18,7 +18,7 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "bundleIdentifier": "xyz.owky.owky",
-      "buildNumber": "1.0.11",
+      "buildNumber": "1.0.0",
       "supportsTablet": false,
       "infoPlist": {
         "NSFaceIDUsageDescription": "Authenticate with TouchId or FaceID.",

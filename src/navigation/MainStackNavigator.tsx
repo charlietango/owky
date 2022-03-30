@@ -7,6 +7,7 @@ import Settings from '@screen/Settings/Settings';
 import AddAccount from '@screen/AddAccount/AddAccount';
 import QrScanner from '@screen/QrScanner/QrScanner';
 import { useTheme } from 'styled-components';
+import Export from '@screen/Export/Export';
 
 const Stack = createNativeStackNavigator();
 
@@ -30,6 +31,7 @@ export default function MainStackNavigator(): JSX.Element {
         </Stack.Group>
         <Stack.Group screenOptions={{ presentation: 'modal' }}>
           <Stack.Screen name="QrScanner" options={{ headerShown: false }} component={QrScanner} />
+          <Stack.Screen name="Export" options={{ headerShown: false }} component={Export} />
         </Stack.Group>
       </Stack.Navigator>
     </NavigationContainer>
