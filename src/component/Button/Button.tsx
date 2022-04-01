@@ -59,7 +59,7 @@ export function SecondaryButton({ title, onPress }: ButtonProps): JSX.Element {
   );
 }
 
-const DangerPressableArea = styled(Pressable)`
+const SettingsPressableArea = styled(Pressable)`
   height: 50px;
   border-radius: 5px;
   display: flex;
@@ -73,10 +73,31 @@ const DangerButtonLabel = styled(BaseButtonLabel)`
   color: ${({ theme }) => theme.dangerColor};
 `;
 
+const SettingsButtonLabel = styled(BaseButtonLabel)`
+  color: ${({ theme }) => theme.accentColor};
+`;
+
+
+export function SettingsButton({ title, onPress }: ButtonProps): JSX.Element {
+  const theme = useTheme();
+  return (
+    <SettingsPressableArea
+      style={({ pressed }) => [
+        {
+          backgroundColor: pressed ? theme.transparent10 : theme.transparent100,
+        },
+      ]}
+      onPress={onPress}
+    >
+      <SettingsButtonLabel>{title}</SettingsButtonLabel>
+    </SettingsPressableArea>
+  );
+}
+
 export function DangerButton({ title, onPress }: ButtonProps): JSX.Element {
   const theme = useTheme();
   return (
-    <DangerPressableArea
+    <SettingsPressableArea
       style={({ pressed }) => [
         {
           backgroundColor: pressed ? theme.transparent10 : theme.transparent100,
@@ -85,6 +106,6 @@ export function DangerButton({ title, onPress }: ButtonProps): JSX.Element {
       onPress={onPress}
     >
       <DangerButtonLabel>{title}</DangerButtonLabel>
-    </DangerPressableArea>
+    </SettingsPressableArea>
   );
 }
